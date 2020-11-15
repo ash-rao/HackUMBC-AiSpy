@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<title>AISpy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+<head>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+<style>
+body, html {height: 100%}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
+.menu {display: none}
+.bgimg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("/static/dog.png");
+  min-height: 100%;
+}
+</style>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top w3-hide-small">
+  <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
+    <a href="#" class="w3-bar-item w3-button">HOME</a>
+    
+    <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+    <a href="#myMap" class="w3-bar-item w3-button">CONTACT</a>
+  </div>
+</div>
+  
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-padding">
+    <span class="w3-tag w3-xlarge">Relieve childhood nostaligia</span>
+  </div>
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white w3-hide-small" style="font-size:100px">AI Spy</span>
+    <span class="w3-text-white w3-hide-large w3-hide-medium" style="font-size:60px"><b>AI Spy</b></span>
+    <p><a href="#play" class="w3-button w3-xxlarge w3-black">Play now</a></p>
+  </div>
+</header>
+
+<!-- About Container -->
+<div class="w3-container w3-padding-64 w3-red w3-grayscale w3-xlarge" id="about">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">About</h1>
+    <p>In these trying times, we bring forth a nostalgic game - I spy. 
+    	Simply start the game and our tool uses your webcam to find an object in view and sets you out with a clue to find it! We use object detection AI (supported by Google vision) to recognize objects in the image. 
+    It is recommended that you play in an area you are not completely familiar with for more challenging searches. </p>
+    <p><strong>Privacy policy </strong> No captured images are stored on our system. 
+    
+  </div>
+</div>
+
+
+ <!-- play Container -->
+<div class="w3-container w3-padding-64 w3-black w3-grayscale w3-xlarge" id="play">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Play</h1>
+    <img src="{{ url_for('video_feed') }}">
+    <button id="click" type='button'> Capture Image!</button>
+     <div id='response'></div>
+    <button 
+  </div>
+</div>
+
+
+
+<!-- Contact -->
+<div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge">
+  <div class="w3-content">
+    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Contact</h1>
+    <a href = "mailto: ar2711@rit.edu">Aishwarya Rao</a>
+    <br>
+    <a href = "mailto: ?">Author 2</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-48 w3-xxlarge">
+  <p>Created for HackUMBC 2020</a></p>
+</footer>
+
+
+
+</body>
+ <script>
+   $(document).ready(function() {
+      $("button").click(function(event){
+         var the_id = event.target.id;
+         $.ajax({
+            url: "/recieve_data",
+            type: "get",
+            data: {button_id: the_id},
+           success: function(response) {
+           $("#response").html(response);
+         },
+          error: function(xhr) {
+        //Do Something to handle error
+        }
+       });
+     });
+   });
+  </script>
+</html>
